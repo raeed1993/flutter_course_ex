@@ -1,5 +1,9 @@
 import 'package:example_project/statemanagement/change_notifier.dart';
+import 'package:example_project/statemanagement/provider_example/counter_app_provider/view/consumer_provider_widget.dart';
+import 'package:example_project/statemanagement/provider_example/counter_app_provider/view/counter_view.dart';
+import 'package:example_project/statemanagement/value_notifier_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'UI/animation/implicit/animated_align_widget.dart';
 import 'UI/animation/implicit/animated_container.dart';
 import 'UI/animation/implicit/animated_opacity.dart';
@@ -24,20 +28,48 @@ import 'UI/speed_dial_package.dart';
 import 'UI/splash_screen.dart';
 import 'UI/tab_bar/tab_bar_screen.dart';
 import 'statemanagement/counter_app.dart';
+import 'statemanagement/provider_example/counter_app_provider/model/counter_model.dart';
+import 'statemanagement/provider_example/counter_app_provider/model/counter_selector_model.dart';
+import 'statemanagement/provider_example/counter_app_provider/view/selector_provider_widget.dart';
 import 'statemanagement/value_notifier.dart';
 
-
 void main() {
-
   runApp(MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+//
+// @override
+// Widget build(BuildContext context) {
+//
+//   return ChangeNotifierProvider<CounterSelectorModel>(
+//       create: (context) => CounterSelectorModel(),
+//       child: MaterialApp(home: SelectorCounterView())
+//   );
+// }
+
+
+
+
+
+
+
+
+//multi provider
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: CounterScreen());
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<CounterModel>(
+          create: (context) => CounterModel(),
+        ),
+        ChangeNotifierProvider<CounterSelectorModel>(
+          create: (context) => CounterSelectorModel(),
+        ),
+      ],
+      child: MaterialApp(home: ConsumerCounterView()),
+    );
   }
 }

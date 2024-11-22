@@ -1,27 +1,6 @@
 import 'package:flutter/material.dart';
 
-//logic
-class CounterChangeNotifier extends ChangeNotifier {
-  int value = 0;
-
-  void incrementCounter() {
-    print('_incrementCounter');
-    value++;
-    notifyListeners();
-  }
-
-  void decrementCounter() {
-    print('_decrementCounter');
-    value--;
-    notifyListeners();
-  }
-
-  void resetCounter() {
-    print('_resetCounter');
-    value = 0;
-    notifyListeners();
-  }
-}
+import 'change_notifier_model.dart';
 
 class ChangeNotifierWidget extends StatefulWidget {
   ChangeNotifierWidget({super.key});
@@ -30,8 +9,14 @@ class ChangeNotifierWidget extends StatefulWidget {
   State<ChangeNotifierWidget> createState() => _ChangeNotifierWidgetState();
 }
 
-class _ChangeNotifierWidgetState extends State<ChangeNotifierWidget> {
+class _ChangeNotifierWidgetState extends State<ChangeNotifierWidget>{
   CounterChangeNotifier controller = CounterChangeNotifier();
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +77,7 @@ class _ChangeNotifierWidgetState extends State<ChangeNotifierWidget> {
     );
   }
 }
+
 // import 'package:flutter/material.dart';
 //
 // class CounterNotifier extends ChangeNotifier {

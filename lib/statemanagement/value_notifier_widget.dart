@@ -1,30 +1,20 @@
 import 'package:flutter/material.dart';
 
+ValueNotifier<int> notifier = ValueNotifier<int>(0);
 
-class CounterScreen extends StatefulWidget {
-  @override
-  _CounterScreenState createState() => _CounterScreenState();
-}
+class CounterScreenValueNotifierWidget extends StatelessWidget {
 
-class _CounterScreenState extends State<CounterScreen> {
-  int value = 0;
-
+  //logic
   void _incrementCounter() {
-    setState(() {
-      value++;
-    });
+    notifier.value++;
   }
 
   void _decrementCounter() {
-    setState(() {
-    value--;
-    });
+    notifier.value--;
   }
 
   void _resetCounter() {
-    setState(() {
-      value = 0;
-    });
+    notifier.value = 0;
   }
 
   @override
@@ -44,9 +34,14 @@ class _CounterScreenState extends State<CounterScreen> {
               style: TextStyle(fontSize: 20),
             ),
             Spacer(),
-            Text(
-              '$value',
-              style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+            ValueListenableBuilder(
+              valueListenable: notifier,
+              builder: (context, value, child) {
+                return Text(
+                  '${value}',
+                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                );
+              },
             ),
             SizedBox(height: 20),
             Row(
@@ -54,17 +49,26 @@ class _CounterScreenState extends State<CounterScreen> {
               children: [
                 ElevatedButton(
                   onPressed: _incrementCounter,
-                  child: Text('Increment',style: TextStyle(fontSize: 22),),
+                  child: Text(
+                    'Increment',
+                    style: TextStyle(fontSize: 22),
+                  ),
                 ),
                 SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: _decrementCounter,
-                  child: Text('Decrement',style: TextStyle(fontSize: 22),),
+                  child: Text(
+                    'Decrement',
+                    style: TextStyle(fontSize: 22),
+                  ),
                 ),
                 SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: _resetCounter,
-                  child: Text('Reset',style: TextStyle(fontSize: 22),),
+                  child: Text(
+                    'Reset',
+                    style: TextStyle(fontSize: 22),
+                  ),
                 ),
               ],
             ),

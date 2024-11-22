@@ -18,6 +18,7 @@ class Nurse extends Employee with Medical, LogOut {
     super.takeTemperature();
     print("Nurse");
   }
+
 }
 
 class Doctor extends Employee with Medical, Surgery, LogOut {}
@@ -40,16 +41,42 @@ class Driver extends Employee with LogOut {}
 
 
 
+
+
+
+
+
+
+
+
 mixin Medical {
   void takeTemperature() {
     print("Take Temperature ...");
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 mixin Surgery {
   void performSurgery() {
     print("Perform Surgery ....");
   }
 }
+
+
+
+
 mixin LogOut on Employee {
   void logout() {
     print("Log out ...");
